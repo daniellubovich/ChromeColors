@@ -8,7 +8,14 @@
     "default_popup": "html/index.html",
     "default_title": "Chrome Colors"
   },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["js/content.js"]
+    }
+  ],
   "permissions": [
-    "activeTab"
+    "activeTab",
+    "storage"
   ]
 }

@@ -2,17 +2,51 @@
 <html>
   <head>
     <title>Chrome Colors</title>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="/js/compiled.js"></script>
     <style>
       body {
-        width:200px;
+        padding:20px;
+        width:400px;
+      }
+
+      .float-right {
+        float:right;
+      }
+
+      .btn-sm {
+        padding:2px 6px;
+      }
+
+      .input-group span {
+        padding-top:4px;
+        padding-bottom:4px;
       }
     </style>
     <script src="../js/index.js"></script>
   </head>
   <body>
-      <div class="content">
-        Test Message
+      <div class="header">
+        <legend>
+          Add Inputs
+          <button class="float-right btn btn-success btn-sm" id="addButton">
+          <i class="glyphicon glyphicon-plus"></i>
+          </button>
+        </legend>
       </div>
-      <button type="button" id="runButton">Click</button>
+      <div class="content">
+      </div>
+      <button type="button" class="btn btn-primary" id="runButton">Refresh</button>
   </body>
 </html>
+
+<script id="color-group-template" type="text/x-custom-template">
+    <div class="form-group">
+      <div class="input-group color-group">
+        <input type="text" class="input-selector form-control" id="input-1" placeholder="CSS Selector">
+        <span class="input-group-addon">
+      <input type="color" style="display:inline" class="input-color" id="color-1">
+      </span>
+      </div>
+    </div>
+</script>

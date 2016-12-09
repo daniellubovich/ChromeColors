@@ -1,0 +1,26 @@
+{
+  "name": "chromecolors",
+  "version": "1.0.0",
+  "description": "Color switching Chrome plugin",
+  "main": "js/index.js",
+  "scripts": {
+    "test": "nope"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daniellubovich/ChromeColors.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/daniellubovich/ChromeColors/issues"
+  },
+  "homepage": "https://github.com/daniellubovich/ChromeColors#readme",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.1.1"
+  },
+  "devDependencies": {
+    "gulp-concat": "^2.6.1"
+  }
+}

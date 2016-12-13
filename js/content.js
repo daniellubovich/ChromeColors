@@ -1,3 +1,5 @@
-var el = document.querySelectorAll(colorParams.selector).forEach(function(div) {
-	div.style.backgroundColor = colorParams.color;
-});
+colorParams.forEach(function(colorObject) {
+	document.querySelectorAll(colorObject.selector).forEach(function(div) {
+		div.style.backgroundColor = colorObject.color;
+	});
+})

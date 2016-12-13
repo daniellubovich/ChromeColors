@@ -7,26 +7,28 @@ document.addEventListener('DOMContentLoaded', function () {
     loadChanges();
 });
 
-addEventListener("unload", function (event) {
-	alert('test');
-}, true);
-
 function run() {
 	saveChanges();
 	changeColor();
 }
 
 function changeColor() {
-	inputElement = document.getElementById("input-1")
-	colorElement = document.getElementById("color-1")
 
-	var info = {
-		selector: inputElement.value,
-		color: colorElement.value
-	};
+	let colorGroups = $('.color-group');
+	var data = [];
+
+	colorGroups.each(function(index) {
+		var colorInput = $(this).find('.input-color');
+		var selectorInput = $(this).find('.input-selector');
+
+		var color = colorInput.val();
+		var selector = selectorInput.val();
+
+		data.push({color: color, selector: selector});
+	});
 
 	chrome.tabs.executeScript({
-	  code: 'var colorParams = ' + JSON.stringify(info)
+	  code: 'var colorParams = ' + JSON.stringify(data)
 	}, function() {
 		chrome.tabs.executeScript({
 			file: '/js/content.js'	

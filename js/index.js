@@ -7,16 +7,18 @@ document.addEventListener('DOMContentLoaded', function () {
     loadChanges();
 });
 
+// Runs on plugin load.
 function run() {
 	saveChanges();
 	changeColor();
 }
 
+// Injects the colors into the page with /js/content.js
 function changeColor() {
-
 	let colorGroups = $('.color-group');
 	var data = [];
 
+	// Build color data to send to the tab.
 	colorGroups.each(function(index) {
 		var colorInput = $(this).find('.input-color');
 		var selectorInput = $(this).find('.input-selector');
@@ -27,6 +29,7 @@ function changeColor() {
 		data.push({color: color, selector: selector});
 	});
 
+	// Tell the tab to execute content.js
 	chrome.tabs.executeScript({
 	  code: 'var colorParams = ' + JSON.stringify(data)
 	}, function() {
@@ -36,6 +39,7 @@ function changeColor() {
 	});
 }
 
+// Adds a new color group.
 function addGroup(colorInfo) {
 	var template = $("#color-group-template").html();
 	var group = $(template).appendTo('.content');
@@ -46,12 +50,12 @@ function addGroup(colorInfo) {
 	}
 }
 
+// Save our current data.
 function saveChanges() {
-	// Get a value saved in a form.
-
 	let colorGroups = $('.color-group');
 	var data = [];
 
+	// Build our color data.
 	colorGroups.each(function(index) {
 		var colorInput = $(this).find('.input-color');
 		var selectorInput = $(this).find('.input-selector');
@@ -62,13 +66,16 @@ function saveChanges() {
 		data.push({color: color, selector: selector});
 	});
 
+	// Push the data to local storage.
 	chrome.storage.sync.set({'data': data}, function() {
 		console.log('saved');
 	});
 }
 
+// Load our previously saved data, if there is any.
 function loadChanges() {
 	var template = $("#color-group-template").html();
+
 	chrome.storage.sync.get('data', function(info) {
 		var data = info.data;
 

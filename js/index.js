@@ -10,9 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Runs when user saves. Saves color data and applies it to the page.
 function run() {
-    var data = getColorDataFromInputs();
     saveChanges();
-    applyColorData(data);
+    applyColorData(getColorDataFromInputs());
 }
 
 // Save our current data to local storage.
@@ -37,7 +36,7 @@ function loadChanges() {
                 addInputGroup(el);
             });
         } else {
-        	addInputGroup();
+            addInputGroup();
         }
     });
 }
@@ -66,7 +65,7 @@ function getColorDataFromInputs() {
 
 // Adds a new color group.
 function addInputGroup(colorData) {
-	var template, group, colorEl, selectorEl;
+    var template, group, colorEl, selectorEl;
 
     template = $("#color-group-template").html();
     group = $(template).appendTo('.content');
@@ -75,7 +74,7 @@ function addInputGroup(colorData) {
     colorEl = group.find('.input-color');
     selectorEl = group.find('.input-selector');
 
-    if (colorData != undefined) {
+    if (colorData !== undefined) {
         // Fill the color and selector elements with the correct values.
         colorEl.colorpicker({
             color: colorData.color,
@@ -90,18 +89,22 @@ function addInputGroup(colorData) {
     }
 
     // Make sure the background color of the button matches the current colorpicker value.
+    var colorElementValue = colorEl.colorpicker('getValue');
+    colorEl.css('background-color', colorElementValue);
 
-    colorEl.css('background-color', colorEl.colorpicker('getValue'));
+    // Set up the listener to apply any changes.
     colorEl.on('changeColor', function(e) {
-        $(this).css('background-color', $(this).colorpicker('getValue'));
-        var data = getColorDataFromInputs();
-        applyColorData(data);
+        var color, element;
+
+        element = $(this);
+        color = element.colorpicker('getValue');
+        element.css('background-color', color);
+        applyColorData(getColorDataFromInputs());
     });
 }
 
 // Injects the colors into the page with /js/content.js
 function applyColorData(colorData) {
-    // Tell the tab to execute content.js
     chrome.tabs.executeScript({
         code: 'var colorParams = ' + JSON.stringify(colorData)
     }, function() {

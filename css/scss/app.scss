@@ -1,0 +1,118 @@
+$primary: #F44336;
+$secondary: #E57373;
+$ternary: #FFEBEE;
+
+$accent: #651FFF;
+
+body {
+    padding: 0;
+    width: 400px;
+    -webkit-font-smoothing: antialiased;
+}
+
+.main {
+    padding: 25px 20px 20px 20px;
+}
+
+.header {
+    background-color: $primary;
+    height: 40px;
+    box-shadow: 0 2px 2px 0 lightgray;
+
+    button {
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+        position: relative;
+        margin-left: auto;
+        border-radius: 50%;
+        background-color: $accent;
+        font-weight: normal !important;
+        color: white;
+        border: none;
+        height: 38px;
+        display: block;
+        width: 38px;
+        margin-right: 10px;
+        margin-top: -22px;
+    }
+
+    h1 {
+        line-height: 40px;
+        font-size: 20px;
+        padding-left: 20px;
+        font-weight: bold;
+        margin: 0;
+        color: white;
+    }
+}
+
+.float-right {
+    float: right;
+}
+
+.btn-sm {
+    padding: 2px 6px;
+}
+
+.input-group span {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.btn-material {
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    vertical-align: middle;
+    z-index: 1;
+    letter-spacing: 0.5px;
+    will-change: opacity, transform;
+    transition: .3s ease-out;
+    text-transform: uppercase;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    border-radius: 1px;
+
+    &:hover {
+        transition-duration: .3s ease-out;
+        box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    }
+
+    &.btn-primary {
+        background-color: $secondary;
+        border: 1px $secondary solid;
+
+        &:hover {
+            background-color: lighten($secondary, 5%);
+            border: 1px lighten($secondary, 5%) solid;
+        }
+
+        &:focus {
+            background-color: lighten($secondary, 5%);
+            border: 1px lighten($secondary, 5%) solid;
+            outline: 0;
+        }
+    }
+
+    &.btn-success {
+        background-color: $accent;
+        border: 1px $accent solid;
+
+        &:hover {
+            background-color: lighten($accent, 5%);
+            border: 1px lighten($accent, 5%) solid;
+        }
+
+        &:focus {
+            background-color: lighten($accent, 5%);
+            border: 1px lighten($accent, 5%) solid;
+            outline: 0;
+        }
+    }
+}

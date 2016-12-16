@@ -1,91 +1,112 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
     var runButton = document.getElementById('runButton');
     runButton.addEventListener('click', run);
 
     var addButton = document.getElementById('addButton');
-    addButton.addEventListener('click', addGroup);
+    addButton.addEventListener('click', addInputGroup);
+
     loadChanges();
 });
 
-// Runs on plugin load.
+// Runs when user saves. Saves color data and applies it to the page.
 function run() {
-	saveChanges();
-	changeColor();
+    var data = getColorDataFromInputs();
+    saveChanges();
+    applyColorData(data);
 }
 
-// Injects the colors into the page with /js/content.js
-function changeColor() {
-	let colorGroups = $('.color-group');
-	var data = [];
+// Save our current data to local storage.
+function saveChanges() {
+    var data = getColorDataFromInputs();
 
-	// Build color data to send to the tab.
-	colorGroups.each(function(index) {
-		var colorInput = $(this).find('.input-color');
-		var selectorInput = $(this).find('.input-selector');
+    chrome.storage.sync.set({
+        'data': data
+    }, function() {
+        console.log('saved');
+    });
+}
 
-		var color = colorInput.val();
-		var selector = selectorInput.val();
+// Load our previously saved data, if there is any, from local storage.
+function loadChanges() {
+    chrome.storage.sync.get('data', function(info) {
+        var data = info.data;
 
-		data.push({color: color, selector: selector});
-	});
+        if (data.length) {
+            data.forEach(function(el) {
+                var group, colorEl, selectorEl;
+                addInputGroup(el);
+            });
+        } else {
+        	addInputGroup();
+        }
+    });
+}
 
-	// Tell the tab to execute content.js
-	chrome.tabs.executeScript({
-	  code: 'var colorParams = ' + JSON.stringify(data)
-	}, function() {
-		chrome.tabs.executeScript({
-			file: '/js/content.js'	
-		});
-	});
+// Gets the color data from the inputs.
+function getColorDataFromInputs() {
+    let colorGroups = $('.color-group');
+    var colorData = [];
+
+    // Build our color data.
+    colorGroups.each(function(index) {
+        var colorInput = $(this).find('.input-color');
+        var selectorInput = $(this).find('.input-selector');
+
+        var color = colorInput.colorpicker('getValue');
+        var selector = selectorInput.val();
+
+        colorData.push({
+            color: color,
+            selector: selector
+        });
+    });
+
+    return colorData;
 }
 
 // Adds a new color group.
-function addGroup(colorInfo) {
-	var template = $("#color-group-template").html();
-	var group = $(template).appendTo('.content');
-	if(colorInfo != undefined) {
-		// Fill the color and selector elements with the correct values.
-		var colorEl    = group.find('.input-color').val(colorInfo.color);
-		var selectorEl = group.find('.input-selector').val(colorInfo.selector);
-	}
+function addInputGroup(colorData) {
+	var template, group, colorEl, selectorEl;
+
+    template = $("#color-group-template").html();
+    group = $(template).appendTo('.content');
+
+    // Get the children elements for setting loaded values.
+    colorEl = group.find('.input-color');
+    selectorEl = group.find('.input-selector');
+
+    if (colorData != undefined) {
+        // Fill the color and selector elements with the correct values.
+        colorEl.colorpicker({
+            color: colorData.color,
+            format: 'rgba'
+        });
+
+        selectorEl.val(colorData.selector);
+    } else {
+        colorEl.colorpicker({
+            format: 'rgba'
+        });
+    }
+
+    // Make sure the background color of the button matches the current colorpicker value.
+
+    colorEl.css('background-color', colorEl.colorpicker('getValue'));
+    colorEl.on('changeColor', function(e) {
+        $(this).css('background-color', $(this).colorpicker('getValue'));
+        var data = getColorDataFromInputs();
+        applyColorData(data);
+    });
 }
 
-// Save our current data.
-function saveChanges() {
-	let colorGroups = $('.color-group');
-	var data = [];
-
-	// Build our color data.
-	colorGroups.each(function(index) {
-		var colorInput = $(this).find('.input-color');
-		var selectorInput = $(this).find('.input-selector');
-
-		var color = colorInput.val();
-		var selector = selectorInput.val();
-
-		data.push({color: color, selector: selector});
-	});
-
-	// Push the data to local storage.
-	chrome.storage.sync.set({'data': data}, function() {
-		console.log('saved');
-	});
-}
-
-// Load our previously saved data, if there is any.
-function loadChanges() {
-	var template = $("#color-group-template").html();
-
-	chrome.storage.sync.get('data', function(info) {
-		var data = info.data;
-
-		if(data.length) {
-			data.forEach(function(el) {
-				var group, colorEl, selectorEl;
-				addGroup(el);
-			});
-		} else {
-			$(template).appendTo('.content');
-		}
-	});
+// Injects the colors into the page with /js/content.js
+function applyColorData(colorData) {
+    // Tell the tab to execute content.js
+    chrome.tabs.executeScript({
+        code: 'var colorParams = ' + JSON.stringify(colorData)
+    }, function() {
+        chrome.tabs.executeScript({
+            file: '/js/content.js'
+        });
+    });
 }

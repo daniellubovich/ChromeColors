@@ -19,7 +19,10 @@
   "dependencies": {},
   "devDependencies": {
     "bootstrap": "^3.3.7",
+    "bootstrap-colorpicker": "^2.3.6",
     "gulp-concat": "^2.6.1",
+    "gulp-copy": "^1.0.0",
+    "gulp-sass": "^3.0.0",
     "gulp-watch": "^4.3.11",
     "jquery": "^3.1.1"
   }

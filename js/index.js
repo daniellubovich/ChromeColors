@@ -78,13 +78,13 @@ function addInputGroup(colorData) {
         // Fill the color and selector elements with the correct values.
         colorEl.colorpicker({
             color: colorData.color,
-            format: 'rgba'
+            format: 'rgb'
         });
 
         selectorEl.val(colorData.selector);
     } else {
         colorEl.colorpicker({
-            format: 'rgba'
+            format: 'rgb'
         });
     }
 

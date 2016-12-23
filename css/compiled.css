@@ -42,6 +42,9 @@ body {
   padding-top: 4px;
   padding-bottom: 4px; }
 
+.input-row {
+  margin: 10px 0 10px 0; }
+
 .btn-material {
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
   position: relative;
@@ -61,7 +64,8 @@ body {
   text-transform: uppercase;
   padding-left: 2rem;
   padding-right: 2rem;
-  border-radius: 1px; }
+  border-radius: 1px;
+  margin-top: 10px; }
   .btn-material:hover {
     transition-duration: .3s ease-out;
     box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2); }
@@ -85,3 +89,38 @@ body {
       background-color: #7739ff;
       border: 1px #7739ff solid;
       outline: 0; }
+
+#colour-lover-container {
+  position: relative; }
+
+#colour-lover-content {
+  margin: 0 0 20px 0;
+  padding: 0;
+  display: flex;
+  list-style: none;
+  justify-content: space-around;
+  height: 25px; }
+
+.colour-lover-selector {
+  text-align: center;
+  display: inline-block;
+  width: 25px;
+  height: 25px; }
+
+.colour-lover-selector > a {
+  text-decoration: none;
+  display: inline-block;
+  height: 15px;
+  width: 15px;
+  vertical-align: middle; }
+
+#colour-lover-mask {
+  height: 25px;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+  opacity: 0.75;
+  background-color: #ffffff;
+  z-index: 99; }

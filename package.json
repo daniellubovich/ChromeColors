@@ -16,7 +16,11 @@
     "url": "https://github.com/daniellubovich/ChromeColors/issues"
   },
   "homepage": "https://github.com/daniellubovich/ChromeColors#readme",
-  "dependencies": {},
+  "dependencies": {
+    "browserify": "^13.1.1",
+    "rgb-hex": "^2.1.0",
+    "vinyl-source-stream": "^1.1.0"
+  },
   "devDependencies": {
     "bootstrap": "^3.3.7",
     "bootstrap-colorpicker": "^2.3.6",

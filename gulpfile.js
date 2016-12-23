@@ -2,6 +2,8 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     copy = require('gulp-copy'),
     sass = require('gulp-sass'),
+    source = require('vinyl-source-stream'),
+    browserify = require('browserify'),
     watch = require('gulp-watch'); // not using this yet
 
 var vendorScripts = [
@@ -13,6 +15,15 @@ var vendorScripts = [
 var vendorCss = [
     './node_modules/bootstrap-colorpicker/dist/css/**/*.css'
 ];
+
+gulp.task('browserify', function() {
+    return browserify('js/index.js')
+        .bundle()
+        //Pass desired output filename to vinyl-source-stream
+        .pipe(source('bundle.js'))
+        // Start piping stream to tasks!
+        .pipe(gulp.dest('js'));
+});
 
 // Custom Tasks
 gulp.task('sass', function() {
@@ -47,4 +58,4 @@ gulp.task('img', function() {
         .pipe(gulp.dest('./img'))
 });
 
-gulp.task('all', ['sass', 'js', 'css', 'img'])
+gulp.task('default', ['browserify', 'sass', 'js', 'css', 'img'])

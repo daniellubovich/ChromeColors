@@ -1,6 +1,6 @@
 <!doctype html>
 <html>
-  <head>
+<head>
     <title>Chrome Colors</title>
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="/js/compiled.js"></script>
@@ -8,30 +8,56 @@
     <link rel="stylesheet" href="/css/compiled.css">
     <style>
     </style>
-    <script src="../js/index.js"></script>
-  </head>
-  <body>
-      <div class="header">
-        <h1>
-          Add Inputs
-        </h1>
-        <button class="float-right" id="addButton">
-          <i class="glyphicon glyphicon-plus"></i>
-        </button>
-      </div>
-      <div class="main">
-        <div class="content">
-        </div>
-        <button type="button" class="btn btn-material btn-primary" id="runButton">Save</button>
-      </div>
-  </body>
+    <script src="../js/bundle.js"></script>
+</head>
+<body>
+<div class="header">
+    <h1>
+        Add Inputs
+    </h1>
+    <button class="float-right" id="addButton">
+        <i class="glyphicon glyphicon-plus"></i>
+    </button>
+</div>
+<div class="main">
+    <div id="colour-lover-container">
+        <div id="colour-lover-mask"></div>
+        <ul id="colour-lover-content">
+        </ul>
+    </div>
+    <div class="content">
+    </div>
+    <button type="button" class="btn btn-material btn-primary" id="runButton">Save</button>
+</div>
+</body>
 </html>
 
 <script id="color-group-template" type="text/x-custom-template">
-    <div class="form-group">
-      <div class="input-group color-group">
-        <input type="text" class="input-selector form-control" placeholder="CSS Selector">
-        <a href="#" class="btn btn-default input-group-addon input-color"></a>
-      </div>
+    <div class="container-fluid">
+        <div class="row input-row">
+            <div class="col-xs-6">
+                <div class="input-group">
+                    <input type="text" class="form-control input-selector" placeholder="Color Target">
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="input-group color-group">
+                    <input type="text" class="form-control input-color" placeholder="Color">
+                    <a href="#" class="btn btn-default input-group-addon color-picker"></a>
+                </div>
+            </div>
+        </div>
     </div>
+</script>
+
+<script id="colour-lover-selector-template" type="text/x-custom-template">
+    <li class="colour-lover-selector"></li>
+</script>
+
+<script id="colour-lover-prev" type="text/x-custom-template">
+    <li class="colour-lover-selector"><a href="#"><i class="glyphicon glyphicon-chevron-left"></i></a></li>
+</script>
+
+<script id="colour-lover-next" type="text/x-custom-template">
+    <li class="colour-lover-selector"><a href="#"><i class="glyphicon glyphicon-chevron-right"></i></a></li>
 </script>
